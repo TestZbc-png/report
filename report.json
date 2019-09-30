@@ -1,0 +1,842 @@
+{
+	"info": {
+		"_postman_id": "d0229ccd-a279-4f67-ada2-542e315dcfeb",
+		"name": "IHRM登录关联",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "登录接口",
+			"item": [
+				{
+					"name": "正确登录",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c31cc0b7-b98f-4307-8203-c6e9d9905534",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n\r\n\r\n\r\n\r\n{\"mobile\":\"13800000002\", \r\n\"password\":\"123456\"}\r\n\r\n"
+						},
+						"url": {
+							"raw": "http://182.92.81.159/api/sys/login",
+							"protocol": "http",
+							"host": [
+								"182",
+								"92",
+								"81",
+								"159"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户名错误",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"mobile\":\"13800000666\", \r\n\"password\":\"123456\"}"
+						},
+						"url": {
+							"raw": "{{url}}/api/sys/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户名为空",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"mobile\":\"\", \r\n\"password\":\"123456\"}"
+						},
+						"url": {
+							"raw": "{{url}}/api/sys/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "密码错误",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"mobile\":\"13800000002\", \r\n\"password\":\"error\"}"
+						},
+						"url": {
+							"raw": "{{url}}/api/sys/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "密码为空",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"mobile\":\"13800000002\", \r\n\"password\":\"\"}"
+						},
+						"url": {
+							"raw": "{{url}}/api/sys/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "参数为空",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/sys/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "添加员工",
+			"item": [
+				{
+					"name": "添加成功",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a6a4f34a-a5b8-40ca-a3ac-1edf6a856abb",
+								"exec": [
+									"pm.environment.set(\"select_id\", pm.response.json().data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{login_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"小陈\",\r\n    \"mobile\": \"15855245873\",\r\n    \"timeOfEntry\": \"2019-07-01\",\r\n    \"formOfEmployment\": 1,\r\n    \"workNumber\": \"1322131\",\r\n    \"departmentName\": \"开发部\",\r\n    \"departmentId\": \"1066240656856453120\",\r\n    \"correctionTime\": \"2019-11-30\"}"
+						},
+						"url": {
+							"raw": "{{url}}/api/sys/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "必填项校验——姓名",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{login_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"\",\r\n    \"mobile\": \"13488888888\",\r\n    \"timeOfEntry\": \"2019-07-01\",\r\n    \"formOfEmployment\": 1,\r\n    \"workNumber\": \"1322131\",\r\n    \"departmentName\": \"开发部\",\r\n    \"departmentId\": \"1066240656856453120\",\r\n    \"correctionTime\": \"2019-11-30\"}"
+						},
+						"url": {
+							"raw": "{{url}}/api/sys/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "必填项校验——手机",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{login_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"56789xxxas\",\r\n    \"mobile\": \"\",\r\n    \"timeOfEntry\": \"2019-07-01\",\r\n    \"formOfEmployment\": 1,\r\n    \"workNumber\": \"132242131\",\r\n    \"departmentName\": \"开发部\",\r\n    \"departmentId\": \"1066240656856453120\",\r\n    \"correctionTime\": \"2019-11-30\"}"
+						},
+						"url": {
+							"raw": "{{url}}/api/sys/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "必填项校验——工号",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{login_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"jack3\",\r\n    \"mobile\": \"13477777777\",\r\n    \"timeOfEntry\": \"2019-07-01\",\r\n    \"formOfEmployment\": 1,\r\n    \"workNumber\": \"\",\r\n    \"departmentName\": \"开发部\",\r\n    \"departmentId\": \"1066240656856453120\",\r\n    \"correctionTime\": \"2019-11-30\"}"
+						},
+						"url": {
+							"raw": "{{url}}/api/sys/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST请求——不传递参数",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{login_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/sys/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "查询员工",
+			"item": [
+				{
+					"name": "获取员工信息成功",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{login_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/sys/user/{{select_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"user",
+								"{{select_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取不存在的用户信息",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8622caab-e213-49b5-aed7-784b059e285c",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"equals": true
+							},
+							{
+								"key": "Authorization",
+								"value": "{{login_token}}",
+								"equals": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/sys/user/{{select_id1}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"user",
+								"{{select_id1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "不输入员工id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"equals": true
+							},
+							{
+								"key": "Authorization",
+								"value": "{{login_token}}",
+								"equals": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/sys/user/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "负数",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"equals": true
+							},
+							{
+								"key": "Authorization",
+								"value": "{{login_token}}",
+								"equals": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/sys/user/{{select_id2}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"user",
+								"{{select_id2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "非法字符",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"equals": true
+							},
+							{
+								"key": "Authorization",
+								"value": "{{login_token}}",
+								"equals": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/sys/user/{{select_id3}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"user",
+								"{{select_id3}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "非法字符 Copy",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"equals": true
+							},
+							{
+								"key": "Authorization",
+								"value": "{{login_token}}",
+								"equals": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/sys/user/{{select_id3}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"user",
+								"{{select_id3}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "修改员工",
+			"item": [
+				{
+					"name": "通过id修改员工",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"equals": true
+							},
+							{
+								"key": "Authorization",
+								"value": "{{login_token}}",
+								"equals": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"id\":\"123\"}"
+						},
+						"url": {
+							"raw": "{{url}}/api/sys/user/{{select_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"user",
+								"{{select_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "通过username修改员工",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"equals": true
+							},
+							{
+								"key": "Authorization",
+								"value": "{{login_token}}",
+								"equals": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\":\"小陈\"}"
+						},
+						"url": {
+							"raw": "{{url}}/api/sys/user/{{select_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"user",
+								"{{select_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "通过username修改员工 Copy",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"equals": true
+							},
+							{
+								"key": "Authorization",
+								"value": "{{login_token}}",
+								"equals": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"mobile\":\"15201425878\"}"
+						},
+						"url": {
+							"raw": "{{url}}/api/sys/user/{{select_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"user",
+								"{{select_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "删除员工",
+			"item": [
+				{
+					"name": "删除员工信息成功",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"equals": true
+							},
+							{
+								"key": "Authorization",
+								"value": "{{login_token}}",
+								"equals": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/sys/user/{{select_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"user",
+								"{{select_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "不存在的ID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"equals": true
+							},
+							{
+								"key": "Authorization",
+								"value": "{{login_token}}",
+								"equals": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/sys/user/{{select_id3}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"user",
+								"{{select_id3}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "不传入ID信息",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"equals": true
+							},
+							{
+								"key": "Authorization",
+								"value": "{{login_token}}",
+								"equals": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/sys/user/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "参数为空",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"equals": true,
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"equals": true,
+								"key": "Authorization",
+								"value": "{{login_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/sys/user/{{select_id3}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"user",
+								"{{select_id3}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
